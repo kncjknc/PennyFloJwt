@@ -2,6 +2,7 @@ package DemoFor.PennyFlo.controller;
 
 import DemoFor.PennyFlo.entity.User;
 import DemoFor.PennyFlo.model.AuthTokenclass;
+import DemoFor.PennyFlo.model.UserName;
 import DemoFor.PennyFlo.service.JwtService;
 import DemoFor.PennyFlo.service.UserInfoService;
 import jakarta.annotation.security.RolesAllowed;
@@ -34,12 +35,11 @@ public class UserCotroller {
         return "User Added SuccessFully";
     }
 
-    @PostMapping("/authenticates")
-    public String authenGetToken(@RequestBody AuthTokenclass authRequest) {
+    @PostMapping("/tokenAPI")
+    public String authenticationTicket(@RequestBody AuthTokenclass authRequest) {
         logger.info("inside method");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassWord()));
-        logger.info("inside method2" + authentication.isAuthenticated());
 
         if (authentication.isAuthenticated()) {
             logger.info("inside If");
@@ -51,10 +51,20 @@ public class UserCotroller {
 
     }
 
-    @GetMapping("/getUse/{id}")
-    @RolesAllowed("admin")
-    public User getUser(@PathVariable int id){
-        return userInfoService.getUser(id);
+    @PostMapping("/forgetPassword")
+    public String forgetPassword(@RequestBody UserName userName){
+
+        return userInfoService.forgetPassword(userName);
     }
+
+    @GetMapping("/getUser/{id}")
+    public User getUser(@PathVariable int id){
+       return userInfoService.getUser(id);
+    }
+
+
+
+
+
 
 }

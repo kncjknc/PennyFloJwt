@@ -32,30 +32,38 @@ public class SecurityConfigure {
 
     @Bean
     UserDetailsService userDeailService() {
-
-//		UserDetails admin = User.withUsername("varathan")
-//				.password(encoder.encode("PWD1")).
-//				roles("ADMIN").build();
-//
-//		UserDetails hr = User.withUsername("arjun")
-//				.password(encoder.encode("PWD2")).
-//				roles("HR").build();
-//		return new InMemoryUserDetailsManager(admin,hr);
-
         return new UserInfoService();
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers( "/home").authenticated()
+                        .requestMatchers( "/getUser/{id}").authenticated()
                 )
-                .authorizeHttpRequests((request)->request.requestMatchers("/addUser","/authenticates").permitAll());
+                .authorizeHttpRequests((request)->request.requestMatchers("/addUser","/forgetPassword","/login","/authenticates","/addBank").permitAll());
         http.csrf().disable();
-        http.formLogin();
+
+
+//        http.formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/getUser/101")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login?logout")
+//                .permitAll();
+
+        http
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/login")
+                        .permitAll()
+                );
         return http.build();
+
     }
 
     @Bean
@@ -64,7 +72,6 @@ public class SecurityConfigure {
         authenticationProvider.setUserDetailsService(userDeailService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
-
     }
 
     @Bean

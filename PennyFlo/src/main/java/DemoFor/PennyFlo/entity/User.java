@@ -1,9 +1,8 @@
 package DemoFor.PennyFlo.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="User_Table")
@@ -11,20 +10,25 @@ public class User {
 
     @Id
     private int employeeId;
+    @Column(unique = true)
     private String userName;
     private String password;
     private String role;
     private String mobileNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<BankDetails> bankDetails;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userInvoice")
     private List<Invoice> invoice;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userInvoiceDetail")
     private List<Invoice_Details> invoiceDetails;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userTransaction")
     private List<TransactionHistory> transactionHistories;
 

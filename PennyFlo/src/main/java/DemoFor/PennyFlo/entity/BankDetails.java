@@ -1,5 +1,6 @@
 package DemoFor.PennyFlo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -16,6 +17,7 @@ public class BankDetails {
     private String accountHolderNumber;
     private String bankIFSC;
     private String currency;
+
     @ManyToOne
     private User user;
 
