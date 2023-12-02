@@ -6,6 +6,7 @@ import DemoFor.PennyFlo.model.UserName;
 import DemoFor.PennyFlo.service.JwtService;
 import DemoFor.PennyFlo.service.UserInfoService;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,20 @@ public class UserCotroller {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
     @PostMapping("/addUser")
     public String addUser(@RequestBody User user){
         userInfoService.addUsers(user);
         return "User Added SuccessFully";
     }
 
-    @PostMapping("/tokenAPI")
+    @PostMapping("/loginUser")
     public String authenticationTicket(@RequestBody AuthTokenclass authRequest) {
         logger.info("inside method");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassWord()));
-
         if (authentication.isAuthenticated()) {
             logger.info("inside If");
             return jwtService.generateToken(authRequest.getUserName());
@@ -57,13 +60,11 @@ public class UserCotroller {
         return userInfoService.forgetPassword(userName);
     }
 
-    @GetMapping("/getUser/{id}")
-    public User getUser(@PathVariable int id){
-       return userInfoService.getUser(id);
+    @GetMapping("/logoutUser")
+    public String logout(){
+        httpServletRequest.getSession().invalidate();
+        return "logout successfully";
     }
-
-
-
 
 
 

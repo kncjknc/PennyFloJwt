@@ -43,7 +43,7 @@ public class SecurityConfigure {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers( "/getUser/{id}").authenticated()
                 )
-                .authorizeHttpRequests((request)->request.requestMatchers("/addUser","/forgetPassword","/login","/authenticates","/addBank").permitAll());
+                .authorizeHttpRequests((request)->request.requestMatchers("/logoutUser","/loginUser","/addUser","/forgetPassword","/login","/authenticates","/addBank").permitAll());
         http.csrf().disable();
 
 
