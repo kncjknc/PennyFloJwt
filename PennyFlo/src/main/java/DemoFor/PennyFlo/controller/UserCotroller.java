@@ -66,6 +66,11 @@ public class UserCotroller {
         return "logout successfully";
     }
 
+    @GetMapping("/getUser/{id}")
+    public User getUser(@PathVariable int id){
+       return userInfoService.getUser(id);
+    }
+
 
 
 }
