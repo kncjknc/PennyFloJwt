@@ -71,6 +71,4 @@ public class UserCotroller {
        return userInfoService.getUser(id);
     }
 
-
-
 }

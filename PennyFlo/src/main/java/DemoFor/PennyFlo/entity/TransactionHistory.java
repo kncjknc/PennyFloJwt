@@ -9,7 +9,7 @@ public class TransactionHistory {
 
     @Id
     private int transactionId;
-    private Date date;
+    private String date;
     private String counterParty;
     private long refernceNo;
     private String category;
@@ -30,7 +30,7 @@ public class TransactionHistory {
         this.userTransaction = userTransaction;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -62,7 +62,7 @@ public class TransactionHistory {
         return transactionId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -90,7 +90,7 @@ public class TransactionHistory {
         return billNo;
     }
 
-    public TransactionHistory(int transactionId, Date date, String counterParty, long refernceNo, String category, String bank, long totalAmount, long billNo, User userTransaction) {
+    public TransactionHistory(int transactionId, String date, String counterParty, long refernceNo, String category, String bank, long totalAmount, long billNo, User userTransaction) {
         this.transactionId = transactionId;
         this.date = date;
         this.counterParty = counterParty;
@@ -106,3 +106,4 @@ public class TransactionHistory {
     }
 
 }
+

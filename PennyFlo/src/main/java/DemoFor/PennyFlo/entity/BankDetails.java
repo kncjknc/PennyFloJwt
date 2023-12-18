@@ -18,6 +18,7 @@ public class BankDetails {
     private String bankIFSC;
     private String currency;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 

@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,14 +22,9 @@ public class DashboardController {
         return customerService.getPayAndReceive();
     }
 
-    @GetMapping("/getPayandPayable2")
-    public PayAndReceive payAndReceive(String start, String end){
-        return customerService.getPayAndReceive();
-    }
 
     public List<Integer> overDuePayandReceive(){
-         List<Integer> list = Arrays.asList(1,2);
-        return list;
+        return Arrays.asList(1,2);
     }
 
     public List<BankDetails> banks(){

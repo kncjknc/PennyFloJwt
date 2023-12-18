@@ -41,9 +41,10 @@ public class SecurityConfigure {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers( "/getUser/{id}").authenticated()
+                        .requestMatchers( "/abc").authenticated()
                 )
-                .authorizeHttpRequests((request)->request.requestMatchers("/logoutUser","/loginUser","/addUser","/forgetPassword","/login","/authenticates","/addBank").permitAll());
+                .authorizeHttpRequests((request)->request.requestMatchers("/getInvoiceDetail/{id}","/getInvoice/{id}","addInvoice_Details","/addInvoice","/getUser/{id}","/logoutUser","/loginUser","/addUser","/forgetPassword","/login","/authenticates","/addBank","/getPayments"
+                ,"/getPaid","/getHistory","/getPayandPayable","/addHistory").permitAll());
         http.csrf().disable();
 
 

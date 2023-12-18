@@ -25,9 +25,6 @@ public class CustomerService {
     private BankRepo bankRepo;
 
     @Autowired
-    private BankDetails bankDetails;
-
-    @Autowired
     private TransactionHistoryRepo transactionHistory;
 
     @Autowired
@@ -35,40 +32,33 @@ public class CustomerService {
 
     public PayAndReceive getPayAndReceive() {
        Invoice invoice= invoiceRepo.findById(1).orElse(null);
-        PayAndReceive payAndReceive = new PayAndReceive(invoice.getAmount(),invoice.getAmount()+8);
-        return payAndReceive;
+        return new PayAndReceive(invoice.getAmount(),invoice.getAmount()+8);
     }
 
     public List<BankDetails> getBanks() {
 
-        List<BankDetails> bankDetails = Arrays.asList(bankRepo.findById(1).orElse(null)
+        return Arrays.asList(bankRepo.findById(1).orElse(null)
                 ,bankRepo.findById(2).orElse(null));
-        return bankDetails;
     }
 
     public List<Invoice_Details> getPayments() {
-         List<Invoice_Details> list = Arrays.asList(invoiceDetailRepo.findById(1).orElse(null),
+        return Arrays.asList(invoiceDetailRepo.findById(1).orElse(null),
                 invoiceDetailRepo.findById(2).orElse(null)
         ,invoiceDetailRepo.findById(3).orElse(null)
         ,invoiceDetailRepo.findById(4).orElse(null)
         ,invoiceDetailRepo.findById(5).orElse(null)
         ,invoiceDetailRepo.findById(6).orElse(null)
         ,invoiceDetailRepo.findById(7).orElse(null));
-
-         return list;
     }
 
-    public List<Invoice> getPaid() {
-        List<Invoice> list = Arrays.asList(invoiceRepo.findById(1).orElse(null)
-                ,invoiceRepo.findById(1).orElse(null)
-                ,invoiceRepo.findById(2).orElse(null)
-                ,invoiceRepo.findById(3).orElse(null)
-                ,invoiceRepo.findById(4).orElse(null)
-                ,invoiceRepo.findById(5).orElse(null)
-                ,invoiceRepo.findById(6).orElse(null)
-                ,invoiceRepo.findById(7).orElse(null)
-                ,invoiceRepo.findById(8).orElse(null));
-        return list;
+    public List<Invoice_Details> getPaid() {
+        return Arrays.asList(invoiceDetailRepo.findById(1).orElse(null),
+                invoiceDetailRepo.findById(2).orElse(null)
+                ,invoiceDetailRepo.findById(3).orElse(null)
+                ,invoiceDetailRepo.findById(4).orElse(null)
+                ,invoiceDetailRepo.findById(5).orElse(null)
+                ,invoiceDetailRepo.findById(6).orElse(null)
+                ,invoiceDetailRepo.findById(7).orElse(null));
     }
 
     public List<TransactionHistory> getHistory() {
@@ -79,7 +69,11 @@ public class CustomerService {
         ,transactionHistory.findById(5).orElse(null)
         ,transactionHistory.findById(6).orElse(null)
         ,transactionHistory.findById(7).orElse(null)
-         ,transactionHistory.findById(8).orElse(null));
+        ,transactionHistory.findById(8).orElse(null));
         return history;
+    }
+
+    public TransactionHistory addHistory(TransactionHistory transactionHistory) {
+        return this.transactionHistory.save(transactionHistory);
     }
 }

@@ -2,8 +2,6 @@ package DemoFor.PennyFlo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 @Table(name = "InvoiceDetails")
 public class Invoice_Details {
@@ -11,22 +9,24 @@ public class Invoice_Details {
     @Id
     private int invoiceDetailId;
     private String vendorName;
-    private String VAT_Number;
-    private String Reason;
+    private String vatNumber;
+    private String reason;
     private String email;
     private String invoiceNumber;
     private String currency;
-    private Date invoiceDate;
-    private Date dueDate;
+    private String invoiceDate;
+    private String dueDate;
     private String type;
     private String totalAmount;
     private String status;
     private String notes;
 
+    @JsonIgnore
     @ManyToOne
     private User userInvoiceDetail;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(mappedBy = "invoiceDetails",cascade = CascadeType.ALL)
     private Invoice invoice;
 
     public int getInvoiceDetailId() {
@@ -41,12 +41,12 @@ public class Invoice_Details {
         this.vendorName = vendorName;
     }
 
-    public void setVAT_Number(String VAT_Number) {
-        this.VAT_Number = VAT_Number;
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
     }
 
     public void setReason(String reason) {
-        Reason = reason;
+        this.reason = reason;
     }
 
     public void setEmail(String email) {
@@ -61,11 +61,11 @@ public class Invoice_Details {
         this.currency = currency;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
+    public void setInvoiceDate(String invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -85,16 +85,20 @@ public class Invoice_Details {
         this.notes = notes;
     }
 
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
     public String getVendorName() {
         return vendorName;
     }
 
-    public String getVAT_Number() {
-        return VAT_Number;
+    public String getVatNumber() {
+        return vatNumber;
     }
 
     public String getReason() {
-        return Reason;
+        return reason;
     }
 
     public String getEmail() {
@@ -109,11 +113,11 @@ public class Invoice_Details {
         return currency;
     }
 
-    public Date getInvoiceDate() {
+    public String getInvoiceDate() {
         return invoiceDate;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
@@ -141,11 +145,15 @@ public class Invoice_Details {
         this.userInvoiceDetail = userInvoiceDetail;
     }
 
-    public Invoice_Details(int invoiceDetailId, String vendorName, String VAT_Number, String reason, String email, String invoiceNumber, String currency, Date invoiceDate, Date dueDate, String type, String totalAmount, String status, String notes, User userInvoiceDetail) {
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public Invoice_Details(int invoiceDetailId, String vendorName, String vatNumber, String reason, String email, String invoiceNumber, String currency, String invoiceDate, String dueDate, String type, String totalAmount, String status, String notes, User userInvoiceDetail, Invoice invoice) {
         this.invoiceDetailId = invoiceDetailId;
         this.vendorName = vendorName;
-        this.VAT_Number = VAT_Number;
-        Reason = reason;
+        this.vatNumber = vatNumber;
+        this.reason = reason;
         this.email = email;
         this.invoiceNumber = invoiceNumber;
         this.currency = currency;
@@ -156,6 +164,7 @@ public class Invoice_Details {
         this.status = status;
         this.notes = notes;
         this.userInvoiceDetail = userInvoiceDetail;
+        this.invoice = invoice;
     }
 
     public Invoice_Details() {
